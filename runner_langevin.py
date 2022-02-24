@@ -27,6 +27,15 @@ from model.langevin import *
 #
 ################################################################################
 def runLangevin(config, generator, batch_size, device, H = None):
+    """
+    Runner for langevin
+    Input:
+        config: class that contain all the settings
+        generator: generator class, used to generate data
+        batch_size: As we don't need to have a channel as input, we can pre-specified the batch_size
+        step: epsilon step size of the algorithm
+    
+    """
     #########################################################
     ## Variables definition ## 
     #########################################################

@@ -2,6 +2,11 @@
 sample_generator.py Sample generator class
 
 This class handle the sample generator module
+
+Remark.
+There are two methods to generate the data: 
+    1) give_batch_data is a method that generate both channel and observation (as well as the true symbols)    
+    1) give_batch_data_Hinput is a method that generate observations based on a batch of input (as well as the true symbols) 
 """
 
 
@@ -41,6 +46,7 @@ class sample_generator(object):
 
         return(self.modulate(real_qam_consts), self.modulate(imag_qam_consts))
 
+    #Method to get the Constellation symbols
     def QAM_N_const(self):
         n = self.mod_n
         constellation = np.linspace(int(-np.sqrt(n)+1), int(np.sqrt(n)-1), int(np.sqrt(n)))
@@ -49,6 +55,7 @@ class sample_generator(object):
         constellation = torch.tensor(constellation).to(dtype=torch.float32)
         return constellation, float(alpha)
 
+    
     def QAM_N_ind(self, NT, batch_size):
         indices_QAM = torch.randint(low=0, high=(np.int(np.sqrt(self.mod_n))), size=(batch_size, 2*NT))
         return indices_QAM
@@ -106,36 +113,25 @@ class sample_generator(object):
         R2 = R2.expand(size=(batch_size, -1, -1))
         return R1, R2
 
-    def channel(self, x, snr_db_min, snr_db_max, NT, batch_size, correlated_flag, rho, batch_corr, rho_low, rho_high, QR, Cu):
+    def channel(self, x, snr_db_min, snr_db_max, NT, batch_size, correlated_flag, rho, batch_corr, rho_low, rho_high):
 
-        if (QR):
-            Q,R,H_true = createQR(Cu, self.batch_size)
-            H = torch.tensor(R)
-            H_powerdB = 10. * torch.log(torch.mean(torch.sum(H.pow(2), dim=1), dim=0)) / np.log(10.)
-#             self.Hdataset_powerdB = torch.mean(H_powerdB)
-            self.Hdataset_powerdB = 0.
 
-        else:
-            Hr = torch.empty((batch_size, self.NR, NT)).normal_(mean=0,std=1./np.sqrt(2.*self.NR))
-            Hi = torch.empty((batch_size, self.NR, NT)).normal_(mean=0,std=1./np.sqrt(2.*self.NR))
+        Hr = torch.empty((batch_size, self.NR, NT)).normal_(mean=0,std=1./np.sqrt(2.*self.NR))
+        Hi = torch.empty((batch_size, self.NR, NT)).normal_(mean=0,std=1./np.sqrt(2.*self.NR))
 
-            if (correlated_flag):
-                if (batch_corr):
-                    R1, R2 = self.batch_exp_correlation(rho_low, rho_high, batch_size, NT)
-                    Hr = torch.einsum(('bij,bjl,blk->bik'), (R1, Hr, R2))
-                    Hi = torch.einsum(('bij,bjl,blk->bik'), (R1, Hi, R2))		
-                else:
-                    R1, R2 = self.exp_correlation(rho, batch_size, NT)
-                    Hr = torch.einsum(('bij,bjl,blk->bik'), (R1, Hr, R2))
-                    Hi = torch.einsum(('bij,bjl,blk->bik'), (R1, Hi, R2))
-#             Q, R = torch.qr(Hr + 1j*Hi)
-#             h1 = torch.cat((torch.real(R), -1. * torch.imag(R)), dim=2)
-#             h2 = torch.cat((torch.imag(R), torch.real(R)), dim=2)
-#             H = torch.cat((h1, h2), dim=1)
-            h1 = torch.cat((Hr, -1. * Hi), dim=2)
-            h2 = torch.cat((Hi, Hr), dim=2)
-            H = torch.cat((h1, h2), dim=1)
-            self.Hdataset_powerdB = 0.
+        if (correlated_flag):
+            if (batch_corr):
+                R1, R2 = self.batch_exp_correlation(rho_low, rho_high, batch_size, NT)
+                Hr = torch.einsum(('bij,bjl,blk->bik'), (R1, Hr, R2))
+                Hi = torch.einsum(('bij,bjl,blk->bik'), (R1, Hi, R2))		
+            else:
+                R1, R2 = self.exp_correlation(rho, batch_size, NT)
+                Hr = torch.einsum(('bij,bjl,blk->bik'), (R1, Hr, R2))
+                Hi = torch.einsum(('bij,bjl,blk->bik'), (R1, Hi, R2))
+        h1 = torch.cat((Hr, -1. * Hi), dim=2)
+        h2 = torch.cat((Hi, Hr), dim=2)
+        H = torch.cat((h1, h2), dim=1)
+        self.Hdataset_powerdB = 0.
 
         # Channel Noise
         snr_db = torch.empty((batch_size, 1)).uniform_(snr_db_min, snr_db_max)
@@ -239,13 +235,13 @@ class sample_generator(object):
         return y, H, complexnoise_sigma, actual_snrdB
 
 
-    def give_batch_data(self, NT, snr_db_min=2, snr_db_max=7, batch_size=None, correlated_flag=False, rho=None, batch_corr=False, rho_low=None, rho_high=None, QR=None, Cu=None):
+    def give_batch_data(self, NT, snr_db_min=2, snr_db_max=7, batch_size=None, correlated_flag=False, rho=None, batch_corr=False, rho_low=None, rho_high=None):
         if (batch_size==None):
             batch_size = self.batch_size
         indices = self.random_indices(NT, batch_size)
         joint_indices = self.joint_indices(indices)
         x = self.modulate(indices)
-        y, H, complexnoise_sigma, _ = self.channel(x, snr_db_min, snr_db_max, NT, batch_size, correlated_flag, rho, batch_corr, rho_low, rho_high, QR, Cu)
+        y, H, complexnoise_sigma, _ = self.channel(x, snr_db_min, snr_db_max, NT, batch_size, correlated_flag, rho, batch_corr, rho_low, rho_high)
         return H, y, x, joint_indices, complexnoise_sigma.squeeze()
     
     def give_batch_data_Hinput(self, H, NT, snr_db_min=2, snr_db_max=7, batch_size=None):
