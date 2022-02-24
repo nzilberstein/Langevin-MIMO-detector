@@ -94,16 +94,16 @@ def main():
         with open(dirPath + '/results/langevin_results', "wb") as output_file:
             pkl.dump(serLangevin, output_file)
 
-    # plt.semilogy(config.SNR_dBs[config.NT], serLangevin, label= 'Langevin', marker = '*')
-    # plt.semilogy(config.SNR_dBs[config.NT], serMMSE, label= 'MMSE', marker = 'x')
-    # plt.semilogy(config.SNR_dBs[config.NT], serSDR , label= 'SDR' , marker = 'o')
+    plt.semilogy(config.SNR_dBs[config.NT], serLangevin, label= 'Langevin', marker = '*')
+    plt.semilogy(config.SNR_dBs[config.NT], serMMSE, label= 'MMSE', marker = 'x')
+    plt.semilogy(config.SNR_dBs[config.NT], serSDR , label= 'SDR' , marker = 'o')
 
-    # plt.grid(True, which="both")
-    # plt.legend(loc = 1, fontsize=15)
-    # plt.xlabel('SNR', fontsize=14)
-    # plt.ylabel('SER', fontsize=14)
-    # plt.tick_params(axis='both' , labelsize=14)
-    # plt.savefig(dirPath + '/results/langevin_methods.pdf')
+    plt.grid(True, which="both")
+    plt.legend(loc = 1, fontsize=15)
+    plt.xlabel('SNR', fontsize=14)
+    plt.ylabel('SER', fontsize=14)
+    plt.tick_params(axis='both' , labelsize=14)
+    plt.savefig(dirPath + '/results/langevin_methods.pdf')
 
 if __name__ == '__main__':
     main()
