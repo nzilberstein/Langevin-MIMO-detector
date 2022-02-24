@@ -63,7 +63,7 @@ class Unadjusted_langevin_algorithm():
         return x_out
 
 
-    def forward(self, Z0, singulars, Sigma, Uh, Vh, y, noise_sigma, sigma_gaussian, sigma_L, NT, M):
+    def forward(self, Z0, singulars, Sigma, Uh, Vh, y, noise_sigma, sigma_gaussian, sigma_L, batch_size, NT, M):
         """
         Forward pass
         Input:
@@ -75,6 +75,7 @@ class Unadjusted_langevin_algorithm():
             noise_sigma: sqrt of the variance of the measuremnt noise
             sigma_gaussian:sqrt of the variance of the annealed noise at the level
             sigma_L: sqrt of the variance of the annealed noise at the last level 
+            batch_size: number of channel samples
             NT: Number of users
             M: order of the modulation
         Output:
@@ -83,7 +84,6 @@ class Unadjusted_langevin_algorithm():
         """
         Zi = Z0
         samples = []
-        batch_size = Sigma.shape[0]
         singulars = singulars.to(device=self.device)
 
         yT = batch_matvec_mul(Uh, y.float())
