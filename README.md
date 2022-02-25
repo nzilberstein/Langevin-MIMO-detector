@@ -59,6 +59,6 @@ BibTeX format:
       author={Nicolas Zilberstein and Chris Dick and Rahman Doost-Mohammady and Ashutosh Sabharwal and Santiago Segarra},
       year={2022},
       eprint={2202.12199},
-      archivePrefix={arXiv},
+      archivePrefix={arXiv}
 }
 ```
