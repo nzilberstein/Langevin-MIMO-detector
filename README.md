@@ -2,7 +2,7 @@
 
 Massive MIMO detector based on an annealed version of the Unadjusted Langevin Algorithm (ULA)
 
-This repo contains the official implementation of the "Detection by Sampling: Massive MIMO Detector based on Langevin Dynamics" paper (arXiv:).
+This repo contains the official implementation of the "Detection by Sampling: Massive MIMO Detector based on Langevin Dynamics" paper (arXiv:2202.12199). Link: 
 
 ## Code
 
@@ -12,7 +12,7 @@ Dependencies
 
 The following Python libraries are required: os, numpy, matplotlib, pickle, scipy, torch, pathlib
 
-## Data
+### Data
 
 Data is compress in a zip file. In order to run the following methods, please decompress it in the folder. Otherwise, you can generate your own channels. 
 
@@ -28,3 +28,21 @@ To generate the plot in the paper (comparing the method), please run the script 
 ### Remark
 
 Sample_generator file and classic_detector are largely based on the code from: https://github.com/krpratik/RE-MIMO ("RE-MIMO: Recurrent and Permutation Equivariant Neural MIMO Detection")
+
+## Feedback
+
+For questions and comments, feel free to send me an email nzilberstein@rice.edu.
+
+## Citation
+
+BibTeX format:
+
+```
+@article{zilberstein2022detection,
+      title={Detection by Sampling: Massive MIMO Detector based on Langevin Dynamics}, 
+      author={Nicolas Zilberstein and Chris Dick and Rahman Doost-Mohammady and Ashutosh Sabharwal and Santiago Segarra},
+      year={2022},
+      eprint={2202.12199},
+      archivePrefix={arXiv}
+}
+```
