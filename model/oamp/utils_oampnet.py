@@ -51,10 +51,10 @@ def sym_detection(x_hat, j_indices, real_QAM_const, imag_QAM_const):
     x_real = torch.pow(x_real - real_QAM_const, 2)
     x_imag = torch.pow(x_imag - imag_QAM_const, 2)
     x_dist = x_real + x_imag
-    x_indices = torch.argmin(x_dist, dim=-1)
+    x_indices = torch.argmin(x_dist, dim=-1).to(device=x_hat.device)
 
-    return x_indices
-
+    accuracy = (x_indices == j_indices).sum().to(dtype=torch.float32)
+    return accuracy.item()/x_indices.numel()
 
 
 def loss_fn(x, list_batch_x_predicted, num_layers, j_indices, real_QAM_const, imag_QAM_const, criterion, ser_only=False):
