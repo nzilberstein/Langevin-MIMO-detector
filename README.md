@@ -10,7 +10,7 @@ The code is written in Python3 and run using PyTorch. Details as follows.
 
 Dependencies
 
-The following Python libraries are required: os, numpy, matplotlib, pickle, scipy, torch, pathlib
+The following Python libraries are required: <strong>os, numpy, matplotlib, pickle, scipy, torch, pathlib</strong>
 
 ### Data
 
