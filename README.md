@@ -22,7 +22,7 @@ The main file is ```main.py```. This file call two runners: langevin runnner ```
 
 ### Run
 
-To generate the plot in the paper (comparing the method), please run the script results_paper.py. This will generate data for the classical detector (MMSE and SDR) and the Langevin detector. If you want to add the learning-based, in model there are two notebooks where you can train the model and test in the data channel.
+To generate the plot in the paper (comparing the method), please run the script ```results_paper.py```. This will generate data for the classical detector (MMSE and SDR) and the Langevin detector. If you want to add the learning-based, in model there are two notebooks where you can train the model and test in the data channel.
 
 
 ### Remark
