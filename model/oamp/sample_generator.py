@@ -8,7 +8,6 @@ import sys
 import pickle as pkl
 import matplotlib.pyplot as plt
 from numpy import linalg as LA
-from utils import *
 from scipy.stats import ortho_group as og
 # from matrix_models import *
 import scipy.linalg as LA
