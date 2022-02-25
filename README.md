@@ -18,7 +18,7 @@ Data is compress in a zip file. In order to run the following methods, please de
 
 ### Concept
 
-The main file is ```main.py```. This file call two runners: langevin runnner ```runner_langevin.py``` and ```runner_classical_methods.py```, which call the corresponding detector. Those detectos are in the folder ```model``` as well as the learning-based. To run the learning-based, there are a notebook for each method (both methods where taken from the repository https://github.com/krpratik/RE-MIMO). Then in the folder ```data``` you have the file with the chanels used in the paper as well as the ```sample_generator.py``` class. Then in ```utils``` there are two scripts: one with utility functions and the other to plot the results. Finally, in the folder ```results``` will be stored the output data (Symbol error rate).
+The main file is ```main.py```. This file call two runners: langevin runnner ```runner_langevin.py``` and ```runner_classical_methods.py```, which call the corresponding detector. Those detectos are in the folder ```model``` as well as the learning-based. To run the learning-based, there are a notebook for each method. Then in the folder ```data``` you have the file with the chanels used in the paper as well as the ```sample_generator.py``` class. Then in ```utils``` there are two scripts: one with utility functions and the other to plot the results. Finally, in the folder ```results``` will be stored the output data (Symbol error rate).
 
 ### Run
 
@@ -27,7 +27,7 @@ To generate the plot in the paper (comparing the method), please run the script 
 
 ### Remark
 
-Sample_generator file and classic_detector are largely based on the code from: https://github.com/krpratik/RE-MIMO ("RE-MIMO: Recurrent and Permutation Equivariant Neural MIMO Detection")
+Sample_generator file, classic_detector and both learning-based baseline methods are largely based on the code from: https://github.com/krpratik/RE-MIMO ("RE-MIMO: Recurrent and Permutation Equivariant Neural MIMO Detection").
 
 ## Feedback
 
