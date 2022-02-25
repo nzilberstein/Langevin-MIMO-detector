@@ -77,7 +77,7 @@ def main():
             pkl.dump(serMMSE, output_file)
         with open(dirPath + '/results/SDR_results', "wb") as output_file:
             pkl.dump(serSDR, output_file)
-    elif LANGEVIN_DETECTOR == True:
+    if LANGEVIN_DETECTOR == True:
         serLangevin = runLangevin(config, generator, batch_size, device, H = H)
         with open(dirPath + '/results/langevin_results', "wb") as output_file:
             pkl.dump(serLangevin, output_file)
