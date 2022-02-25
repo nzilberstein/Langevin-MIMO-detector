@@ -2,7 +2,7 @@
 
 Massive MIMO detector based on an annealed version of the Unadjusted Langevin Algorithm (ULA)
 
-This repo contains the official implementation of the "Detection by Sampling: Massive MIMO Detector based on Langevin Dynamics" paper (arXiv:).
+This repo contains the official implementation of the "Detection by Sampling: Massive MIMO Detector based on Langevin Dynamics" paper (arXiv:2202.12199). Link: 
 
 ## Code
 
@@ -28,3 +28,37 @@ To generate the plot in the paper (comparing the method), please run the script 
 ### Remark
 
 Sample_generator file and classic_detector are largely based on the code from: https://github.com/krpratik/RE-MIMO ("RE-MIMO: Recurrent and Permutation Equivariant Neural MIMO Detection")
+
+## Feedback
+
+For questions and comments, feel free to send me an email nzilberstein@rice.edu.
+
+[1] Chowdhury A, Verma G, Rao C, Swami A, Segarra S. ML-aided power allocation for Tactical MIMO. 
+arXiv preprint arXiv:2109.06992 2021 Sep 14.
+
+BibTeX format:
+
+@article{chowdhury2021ml,
+  title={ML-aided power allocation for Tactical MIMO},
+  author={Chowdhury, Arindam and Verma, Gunjan and Rao, Chirag and Swami, Ananthram and Segarra, Santiago},
+  journal={arXiv e-prints},
+  pages={arXiv--2109},
+  year={2021}
+}
+
+
+
+
+## Citation
+
+BibTeX format:
+
+```
+@article{zilberstein2022detection,
+      title={Detection by Sampling: Massive MIMO Detector based on Langevin Dynamics}, 
+      author={Nicolas Zilberstein and Chris Dick and Rahman Doost-Mohammady and Ashutosh Sabharwal and Santiago Segarra},
+      year={2022},
+      eprint={2202.12199},
+      archivePrefix={arXiv},
+}
+```
