@@ -67,18 +67,6 @@ with open(dirPath + '/data/H_5000bs_3264', 'rb') as fp:
 batch_size = H.shape[0]
    
 
-# import scipy.io as sio
-# mat_contents = sio.loadmat('H_bank.mat')
-# H = mat_contents['H_bank']
-# H = torch.tensor(H[:, :, 0:NT])
-# batch_size = H.shape[0]
-# Hr = torch.real(H)
-# Hi = torch.imag(H)
-
-# h1 = torch.cat((Hr, -1. * Hi), dim=2)
-# h2 = torch.cat((Hi, Hr), dim=2)
-# H = torch.cat((h1, h2), dim=1)
-
 def main():
     #Create generator
     generator = sample_generator(batch_size, config.mod_n, config.NR)
