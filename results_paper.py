@@ -72,7 +72,7 @@ def main():
     generator = sample_generator(batch_size, config.mod_n, config.NR)
 
     if CLASSICAL_DETECTORS == True:
-        serMMSE, serSDR = runClassicDetectors(config, generator, batch_size, device, H = H)
+        serMMSE, serBLAST = runClassicDetectors(config, generator, batch_size, device, H = H)
         with open(dirPath + '/results/MMSE_results', "wb") as output_file:
             pkl.dump(serMMSE, output_file)
         with open(dirPath + '/results/BLAST_results', "wb") as output_file:
