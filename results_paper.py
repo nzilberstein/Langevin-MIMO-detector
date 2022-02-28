@@ -75,8 +75,8 @@ def main():
         serMMSE, serSDR = runClassicDetectors(config, generator, batch_size, device, H = H)
         with open(dirPath + '/results/MMSE_results', "wb") as output_file:
             pkl.dump(serMMSE, output_file)
-        with open(dirPath + '/results/SDR_results', "wb") as output_file:
-            pkl.dump(serSDR, output_file)
+        with open(dirPath + '/results/BLAST_results', "wb") as output_file:
+            pkl.dump(serBLAST, output_file)
     if LANGEVIN_DETECTOR == True:
         serLangevin = runLangevin(config, generator, batch_size, device, H = H)
         with open(dirPath + '/results/langevin_results', "wb") as output_file:
@@ -84,7 +84,7 @@ def main():
 
     plt.semilogy(config.SNR_dBs[config.NT], serLangevin, label= 'Langevin', marker = '*')
     plt.semilogy(config.SNR_dBs[config.NT], serMMSE, label= 'MMSE', marker = 'x')
-    plt.semilogy(config.SNR_dBs[config.NT], serSDR , label= 'SDR' , marker = 'o')
+    plt.semilogy(config.SNR_dBs[config.NT], serBLAST , label= 'V-BLAST' , marker = 'o')
 
     plt.grid(True, which="both")
     plt.legend(loc = 1, fontsize=15)
