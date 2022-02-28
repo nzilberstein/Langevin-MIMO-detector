@@ -31,7 +31,7 @@ from utils.util import *
 def runClassicDetectors(config, generator, batch_size, device, H = None):
 
     #Define list to save data
-    SER_SDR = []
+    SER_BLAST = []
     SER_MMSE32u = []
 
     #########################################################
@@ -63,15 +63,15 @@ def runClassicDetectors(config, generator, batch_size, device, H = None):
         
         
         ###############################
-        ##  SDR  ##
+        ##  V-BLAST  ##
         ###############################
 
 
-        x_sdr = blast_eval(y.unsqueeze(dim=-1).cpu().detach().numpy(), H.cpu().detach().numpy(), 
+        x_blast = blast_eval(y.unsqueeze(dim=-1).cpu().detach().numpy(), H.cpu().detach().numpy(), 
                         config.sigConst, config.NT, config.NR).squeeze()
-        SER_SDR.append(1 - sym_detection(torch.from_numpy(x_sdr), 
+        SER_BLAST.append(1 - sym_detection(torch.from_numpy(x_sdr), 
                             j_indices, generator.real_QAM_const, generator.imag_QAM_const))
 
-        print(SER_MMSE32u, SER_SDR)
+        print(SER_MMSE32u, SER_BLAST)
 
-    return SER_MMSE32u, SER_SDR
+    return SER_MMSE32u, SER_BLAST
