@@ -78,6 +78,7 @@ class Unadjusted_langevin_algorithm():
             batch_size: number of channel samples
             NT: Number of users
             M: order of the modulation
+            Temp: Temperature parameter
         Output:
             Zi: estimation after the n_samples iterations
             samples: all the samples in the level
