@@ -17,6 +17,8 @@ corr_flag : True
 batch_corr : True
 rho : 0.6
 
+temp: 1
+
 #######################################################
 ###   Parameters of the Langevin algorithm ###
 #######################################################

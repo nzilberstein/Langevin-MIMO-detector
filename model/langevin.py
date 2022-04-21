@@ -26,7 +26,7 @@ class Langevin():
         self.sigma_gaussian = sigma_annealead_noise
         self.Langevin_base = Unadjusted_langevin_algorithm(self.generator, self.n_samples, self.step, self.device)
 
-    def forward(self, singulars, Sigma, Uh, Vh, y, noise_sigma, NT, M):
+    def forward(self, singulars, Sigma, Uh, Vh, y, noise_sigma, NT, M, Temp):
         """
         Forward pass
         Input:
@@ -48,7 +48,7 @@ class Langevin():
         sample_list = []
 
         for index in range(self.num_noise_levels):
-            Zi, samples = self.Langevin_base.forward(Z_init, singulars, Sigma, Uh, Vh, y, noise_sigma, self.sigma_gaussian[index], self.sigma_gaussian[-1], bs, NT, M)
+            Zi, samples = self.Langevin_base.forward(Z_init, singulars, Sigma, Uh, Vh, y, noise_sigma, self.sigma_gaussian[index], self.sigma_gaussian[-1], bs, NT, M, Temp)
             sample_list.append(samples)
 
             #Define the initial value of the next level

@@ -92,7 +92,7 @@ def runLangevin(config, generator, batch_size, device, H = None):
             #run langevin
             sample_last, samples = langevin.forward(singulars.float(), Sigma.to(device=device).float(), 
                                     Uh_real.float(), Vh_real.float(), y, noise_sigma[0], batch_size, 
-                                    config.NT, config.M)
+                                    config.NT, config.M, config.temp)
             
             #Generate n_traj realizations of Langevin and then choose the best one w.r.t to ||y-Hx||^2
             list_traj[:,:,jj] = torch.clone(sample_last)

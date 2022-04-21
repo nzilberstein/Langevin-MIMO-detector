@@ -63,7 +63,7 @@ class Unadjusted_langevin_algorithm():
         return x_out
 
 
-    def forward(self, Z0, singulars, Sigma, Uh, Vh, y, noise_sigma, sigma_gaussian, sigma_L, batch_size, NT, M):
+    def forward(self, Z0, singulars, Sigma, Uh, Vh, y, noise_sigma, sigma_gaussian, sigma_L, batch_size, NT, M, Temp):
         """
         Forward pass
         Input:
@@ -124,7 +124,7 @@ class Unadjusted_langevin_algorithm():
             #nosie defintiion
             noiseT = torch.randn(batch_size, 2 * NT).to(device=self.device)
 
-            ZT = ZT + (self.step / sigma_L**2) * torch.mul(A, grad.to(device=self.device)) + np.sqrt( (2 * self.step) / sigma_L**2) * torch.mul(torch.sqrt(A), noiseT)
+            ZT = ZT + (self.step / sigma_L**2) * torch.mul(A, grad.to(device=self.device)) + np.sqrt( (Temp * self.step) / sigma_L**2) * torch.mul(torch.sqrt(A), noiseT)
 
             Zi = batch_matvec_mul(torch.transpose(Vh, 1, 2), ZT)                                                                                           
 
