@@ -31,7 +31,7 @@ class Unadjusted_langevin_algorithm():
         Gaussian denoiser
         Input:
             generator: generator class, used to generate data
-            sigma_annealed: sqrt of the variance of the noise annealed
+            sigma_annealed: variance of the noise annealed
             NT: number of users
             M: order of the constellation 
         Output:
@@ -48,7 +48,7 @@ class Unadjusted_langevin_algorithm():
 
         #Softmax to calculate probabilites
         zt = torch.pow(argr,2) + torch.pow(argi,2)
-        exp = -1.0 * (zt/(2.0 * sigma_annealed**2))
+        exp = -1.0 * (zt/(2.0 * sigma_annealed))
         exp = exp.softmax(dim=-1)
 
         #Multiplication of the numerator with each symbol
