@@ -1,18 +1,27 @@
+"""
+sample_generator_twomodulations.py Sample generator class for generations two modulations
+
+This class handle the sample generator module
+
+Remark.
+There are two methods to generate the data: 
+    1) give_batch_data is a method that generate both channel and observation (as well as the true symbols)    
+    1) give_batch_data_Hinput is a method that generate observations based on a batch of input (as well as the true symbols) 
+"""
+
+
+
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
 import numpy as np
-import time as tm
-import math
-import sys
-import pickle as pkl
-import matplotlib.pyplot as plt
 from numpy import linalg as LA
-from utils.util import *
 from scipy.stats import ortho_group as og
-from matrix_models import *
 import scipy.linalg as LA
-from data.sample_generator import *
+
+import os
+import sys
+sys.path.append(os.path.dirname(os.getcwd()) + '/utils')
+from util import *
+from sample_generator import *
 
 
 def adjust_var(data, NR):
@@ -127,8 +136,8 @@ class sample_generator_twomods(object):
         average_H_powerdB = torch.mean(H_powerdB)
         average_x_powerdB = 10. * torch.log(torch.mean(torch.sum(x.pow(2), dim=1))) / np.log(10.)
 
-        w *= torch.pow(10., (10.*np.log10(NT) + self.Hdataset_powerdB - snr_db - 10.*np.log10(self.NR))/20.)
-        complexnoise_sigma = torch.pow(10., (10.*np.log10(NT) + self.Hdataset_powerdB - snr_db - 10.*np.log10(self.NR))/20.)
+        w *= torch.pow(10., (10.*np.log10(NT) + average_H_powerdB - snr_db - 10.*np.log10(self.NR))/20.)
+        complexnoise_sigma = torch.pow(10., (10.*np.log10(NT) + average_H_powerdB  - snr_db - 10.*np.log10(self.NR))/20.)
 
         w = w.to(device='cuda')
         x = x.to(device='cuda')
