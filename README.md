@@ -25,6 +25,7 @@ Otherwise, if you want to generate a new batch, or even use your own channel mod
 To facilitate the reproducibility, in the folder ```notebooks.py``` you can find a notebook for each experiment. For the non-learning based methods, you just run the notebooks and you can generate the plots. In a nutshell, each notebook call some runners, that are in charge on running each detector. 
 
 The **notebooks** are:
+
       1. Results_synthetic_data: This notebook generate (the non-learning based) results of Fig. 4(b). To generate Fig. 4(a), Figs. 4(c) and (d) and Fig. 5(a), just you need to change the input file (download the channel dataset and uncomment the corresponding lines) and the config values to the corresponding setting.
 
       2. Results_ML: This notebook generate the results for the ML. It is a separate notebook because Gurobi is necessary, and not everyone has access to it. 
