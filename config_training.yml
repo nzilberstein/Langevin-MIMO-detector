@@ -1,0 +1,34 @@
+#######################################################
+###   Parameters of the MIMO system and modulation  ###
+#######################################################
+#Users and Receivers
+NT: 32
+NR : 64
+
+#Modulation order
+mod_n : 16
+mod_n2 : 64
+
+#SNR
+SNR_db_min: 16.0
+SNR_db_max: 22.0
+SNR_db_max_two_mod : 30.0
+
+#Flag and correlation coefficient for Kronecker channel model
+corr_flag : True
+batch_corr : True
+rho : 0.6
+
+temp: 1
+
+#######################################################
+###   Parameters of the Langevin algorithm ###
+#######################################################
+n_sigma_gaussian : 20
+sigma_0 : 1
+sigma_L : 0.01
+n_sample_init : 100
+
+n_traj : 1
+step_size : 0.00003 #3e-5
+

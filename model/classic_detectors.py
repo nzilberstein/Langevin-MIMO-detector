@@ -6,7 +6,6 @@ import os
 import math
 import torch.nn.functional as F
 import cvxpy as cp
-# from gurobipy import *
 
 def mmse(y, H, noise_sigma, device):
     two_NT = int(H.shape[-1])

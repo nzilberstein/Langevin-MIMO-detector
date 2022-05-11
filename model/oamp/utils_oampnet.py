@@ -2,7 +2,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
-from numpy import linalg as LA
 
 
 def model_eval(NT, model, snr_min, snr_max, test_batch_size, generator, device, num_layers, correlated_flag = None, rho_low = None, rho_high = None, rho = None, channel_input = False, H_test_set = None, iterations=150):
@@ -90,40 +89,3 @@ def batch_trace(H):
 def getTotalParams(model):
     return sum(p.numel() for p in model.parameters())
 
-def createPermutationMatrix(N):
-    E=torch.eye(N)  #N X N identity matrix 
-
-    a = np.linspace(0,N-1,N).astype(int)
-    #the permutation in Cauchy 2 line form
-    np.random.shuffle(a)
-    # permutation=np.concat([np.linspace(0,N-1,N).astype(int),np.random.shuffle(a)])   #butterfly permutation example
-
-    P = torch.zeros([N,N]) #initialize the permutation matrix
-
-    for i in range(0,N):
-        P[i]=E[a[i]]
-        
-    return P
-
-def createPermutationMatrix(N):
-    E=torch.eye(N)  #N X N identity matrix 
-
-    a = np.linspace(0,N-1,N).astype(int)
-    #the permutation in Cauchy 2 line form
-    np.random.shuffle(a)
-    # permutation=np.concat([np.linspace(0,N-1,N).astype(int),np.random.shuffle(a)])   #butterfly permutation example
-
-    P = torch.zeros([N,N]) #initialize the permutation matrix
-
-    for i in range(0,N):
-        P[i]=E[a[i]]
-        
-    return P
-
-def permuteBatchMatrix(H, batch_size, N, device):
-    HP = torch.empty(H.shape)
-    for ii in range(batch_size):
-        P = createPermutationMatrix(N).to(device=device).double()
-        HP[ii,:,:] = torch.matmul(H[ii,:,:].to(device=device), P)
-        HP[ii,:,:] = torch.matmul(P.permute(1,0), H[ii,:,:].to(device=device))
-    return HP

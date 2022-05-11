@@ -16,7 +16,10 @@ from numpy import linalg as LA
 from scipy.stats import ortho_group as og
 import scipy.linalg as LA
 
-from utils.util import *
+import os
+import sys
+sys.path.append(os.path.dirname(os.getcwd()) + '/utils')
+from util import *
 
 
 
@@ -172,8 +175,8 @@ class sample_generator(object):
         average_H_powerdB = torch.mean(H_powerdB)
         average_x_powerdB = 10. * torch.log(torch.mean(torch.sum(x.pow(2), dim=1))) / np.log(10.)
 
-        w *= torch.pow(10., (10.*np.log10(NT) + self.Hdataset_powerdB - snr_db - 10.*np.log10(self.NR))/20.)
-        complexnoise_sigma = torch.pow(10., (10.*np.log10(NT) + self.Hdataset_powerdB - snr_db - 10.*np.log10(self.NR))/20.)
+        w *= torch.pow(10., (10.*np.log10(NT) + average_H_powerdB  - snr_db - 10.*np.log10(self.NR))/20.)
+        complexnoise_sigma = torch.pow(10., (10.*np.log10(NT) + average_H_powerdB - snr_db - 10.*np.log10(self.NR))/20.)
 
         w = w.to(device='cuda')
         x = x.to(device='cuda')
