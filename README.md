@@ -2,7 +2,7 @@
 
 Massive MIMO detector based on an annealed version of the Unadjusted Langevin Algorithm (ULA).
 
-This repo contains the official implementation of the "Detection by Sampling: Massive MIMO Detector based on Langevin Dynamics" paper (arXiv:2202.12199). Link: https://arxiv.org/abs/2202.12199
+This repo contains the official implementation of the "Annealed Langevin Dynamics for Massive MIMO Detection" paper (arXiv.2205.05776, link: https://arxiv.org/abs/2205.05776) and "Detection by Sampling: Massive MIMO Detector based on Langevin Dynamics" paper (arXiv:2202.12199, link: https://arxiv.org/abs/2202.12199)
 
 ## Code
 
@@ -65,6 +65,17 @@ To generate the plot in the paper (comparing the method), please run the noteboo
 For questions and comments, feel free to send me an email nzilberstein@rice.edu.
 
 ## Citation
+BibTeX format for journal paper:
+
+```
+@article{zilberstein2022detection_journal,
+      title={Annealed Langevin Dynamics for Massive MIMO Detection}, 
+      author={Nicolas Zilberstein and Chris Dick and Rahman Doost-Mohammady and Ashutosh Sabharwal and Santiago Segarra},
+      year={2022},
+      eprint={2205.05776},
+      archivePrefix={arXiv}
+}
+```
 
 BibTeX format for conference paper:
 
