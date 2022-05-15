@@ -15,13 +15,13 @@ This class handle the sample generator module, such as the symbol detection
 
 
 def sym_detection(x_hat, j_indices, real_QAM_const, imag_QAM_const):
-    #Convierte a complejo
+    #Convert to complex
     x_real, x_imag = torch.chunk(x_hat, 2, dim=-1)
-    #Lo expande a los 4 posibles simbolos para comparar
+    #Expand to the constellation size
     x_real = x_real.unsqueeze(dim=-1).expand(-1,-1, real_QAM_const.numel())
     x_imag = x_imag.unsqueeze(dim=-1).expand(-1, -1, imag_QAM_const.numel())
 
-    #Calcula la resta
+    #Difference w.r.t. to each symbol
     x_real = torch.pow(x_real - real_QAM_const, 2)
     x_imag = torch.pow(x_imag - imag_QAM_const, 2)
     x_dist = x_real + x_imag
