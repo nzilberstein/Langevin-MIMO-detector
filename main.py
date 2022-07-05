@@ -63,36 +63,39 @@ else:
 #
 ################################################################################
 
-if loadChannelInput == True:
-    ################
-    ## Load Data ###
-    ################
+def loadData():
+    if loadChannelInput == True:
+        ################
+        ## Load Data ###
+        ################
 
-    #\\ IID channels
-    # with open(dirPath + '/data/Hiid_5000bs_3264', 'rb') as fp:
-    #     H = pkl.load(fp)
-    # batch_size = H.shape[0]
+        #\\ IID channels
+        # with open(dirPath + '/data/Hiid_5000bs_3264', 'rb') as fp:
+        #     H = pkl.load(fp)
+        # batch_size = H.shape[0]
 
-    #\\ Kronecker channels
-    with open(dirPath + '/data/H_5000bs_3264', 'rb') as fp:
-        H = pkl.load(fp)
-    batch_size = H.shape[0]
+        #\\ Kronecker channels
+        with open(dirPath + '/data/H_5000bs_3264', 'rb') as fp:
+            H = pkl.load(fp)
+        batch_size = H.shape[0]
 
-    #\\ 3gpp case
-    # mat_contents = sio.loadmat(dirPath + '/data/H_bank.mat')
-    # H = mat_contents['H_bank']
-    # # H = torch.tensor(H[:, :, 0:config.NT])
-    # H = torch.tensor(H[:, :, random.sample(range(100), config.NT)])#Pick up NT random users from 100.
-    # batch_size = H.shape[0]
-    # Hr = torch.real(H)
-    # Hi = torch.imag(H)
+        #\\ 3gpp case
+        # mat_contents = sio.loadmat(dirPath + '/data/H_bank.mat')
+        # H = mat_contents['H_bank']
+        # # H = torch.tensor(H[:, :, 0:config.NT])
+        # H = torch.tensor(H[:, :, random.sample(range(100), config.NT)])#Pick up NT random users from 100.
+        # batch_size = H.shape[0]
+        # Hr = torch.real(H)
+        # Hi = torch.imag(H)
 
-    # h1 = torch.cat((Hr, -1. * Hi), dim=2)
-    # h2 = torch.cat((Hi, Hr), dim=2)
-    # H = torch.cat((h1, h2), dim=1)
+        # h1 = torch.cat((Hr, -1. * Hi), dim=2)
+        # h2 = torch.cat((Hi, Hr), dim=2)
+        # H = torch.cat((h1, h2), dim=1)
 
-else:
-    batch_size = 5000
+    else:
+        batch_size = 5000
+
+    return batch_size, H
 
 
 ################################################################################
@@ -104,6 +107,7 @@ else:
 
 def main():
     #Create generator
+    batch_size, H = loadData()
     if loadChannelInput == True:
         generator = sample_generator(batch_size, config.mod_n, config.NR)
     else:
