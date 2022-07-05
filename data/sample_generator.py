@@ -19,7 +19,7 @@ import scipy.linalg as LA
 import os
 import sys
 sys.path.append(os.path.dirname(os.getcwd()) + '/utils')
-from util import *
+from utils.util import *
 
 
 
