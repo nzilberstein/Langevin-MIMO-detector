@@ -108,11 +108,11 @@ def model_eval(model, generator, config, test_batch_size, n_traj, device):
             
     noise_sigma = torch.unsqueeze(noise_sigma, dim=-1).to(device=device)
 
-    for snr in range(config.SNR_dBs[config.NT]):
+    for snr in range(config.SNR_dBs[config.NT].shape[0]):
         print(config.SNR_dBs[config.NT][snr])
         # Create variables to save each trajectory and for each snr
-        dist = torch.zeros((test_batch_size,config.n_traj))
-        list_traj = torch.zeros((test_batch_size, 2*config.NT, config.n_traj))
+        dist = torch.zeros((test_batch_size,n_traj))
+        list_traj = torch.zeros((test_batch_size, 2*config.NT, n_traj))
         x_hat = torch.zeros((test_batch_size, 2*config.NT))
 
 
@@ -124,11 +124,11 @@ def model_eval(model, generator, config, test_batch_size, n_traj, device):
                 start = time.time()
 
                 sample_last, samples = model.forward(singulars.double(), Sigma.to(device=device).double(),
-                                                            Uh_real.double(), Vh_real.double(), y, noise_sigma, test_batch_size,
-                                                            config.step_size, config.temp)
+                                                            Uh_real.double(), Vh_real.double(), y, noise_sigma, config.NT,
+                                                            config.M, config.temp)
                 list_traj[:,:,jj] = torch.clone(sample_last.to(device=device))
                 dist[:, jj] = torch.norm(y.to(device=device).float() - 
-                                        batch_matvec_mul(H_test.to(device=device).float(), sample_last.to(device=device.float()), 2, dim = 1))
+                                        batch_matvec_mul(H_test.to(device=device).float(), sample_last.to(device=device).float()), 2, dim = 1)
                 end = time.time()
                 print(end - start)
                 torch.cuda.empty_cache()
@@ -139,7 +139,7 @@ def model_eval(model, generator, config, test_batch_size, n_traj, device):
                 x_hat[nnn, :] = torch.clone(list_traj[nnn,:,idx[nnn,0]])
 
         # Detection   
-        SER_lang32u.append(1 - sym_detection(x_hat.to(device=device), j_indices, generator.real_QAM_const, generator.imag_QAM_const))
+        SER_lang32u.append(1 - sym_detection(x_hat.to(device=device), j_indices.to(device=device), generator.real_QAM_const.to(device=device), generator.imag_QAM_const.to(device=device)))
         print(SER_lang32u)
 
     return SER_lang32u
