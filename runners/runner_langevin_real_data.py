@@ -70,7 +70,7 @@ def runLangevin(config, generator, batch_size, device, H = None, y = None, noise
     #########################################################
 
     for snr in range(0, len(config.SNR_dBs[config.NT])):
-        print(config.SNR_dBs[config.NT][snr])
+        # print(config.SNR_dBs[config.NT][snr])
         # Create variables to save each trajectory and for each snr
         dist = torch.zeros((batch_size,config.n_traj))
         list_traj = torch.zeros((batch_size, 2*config.NT, config.n_traj))
