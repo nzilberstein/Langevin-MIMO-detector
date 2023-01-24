@@ -1,4 +1,4 @@
-# Detection by Sampling: Massive MIMO Detector based on Langevin Dynamics
+# Annealed Langevin Dynamics for Massive MIMO Detection
 
 Massive MIMO detector based on an annealed version of the Unadjusted Langevin Algorithm (ULA).
 
